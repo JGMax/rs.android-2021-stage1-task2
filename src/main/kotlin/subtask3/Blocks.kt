@@ -21,7 +21,7 @@ class Blocks {
                 val maxDate = blockA.filterIsInstance<LocalDate>().max()
                 if (maxDate != null) {
                     val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                    maxDate.format(formatter)
+                    return maxDate.format(formatter)
                 }
                 ""
             }
