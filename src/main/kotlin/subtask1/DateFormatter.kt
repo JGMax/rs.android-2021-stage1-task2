@@ -1,6 +1,6 @@
 package subtask1
 
-import java.text.ParseException
+import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -11,7 +11,7 @@ class DateFormatter {
         val date = LocalDate.of(year.toInt(), month.toInt(), day.toInt())
         return try {
             date.format(formatter)
-        } catch (e: ParseException) {
+        } catch (e: DateTimeException) {
             "Такого дня не существует"
         }
     }
