@@ -23,16 +23,13 @@ class Blocks {
             }
         }
         return when {
-            maxDate > LocalDate.MIN -> {
+            blockB.isInstance(maxDate) -> {
                 val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
                 maxDate.format(formatter)
             }
-            sumStr.isEmpty() -> {
-                sum
-            }
-            else -> {
-                sumStr
-            }
+            blockB.isInstance(sum) -> sum
+            blockB.isInstance(sumStr) -> sumStr
+            else -> ""
         }
     }
 }
