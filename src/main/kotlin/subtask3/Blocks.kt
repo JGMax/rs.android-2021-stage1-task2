@@ -1,11 +1,38 @@
 package subtask3
 
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import kotlin.reflect.KClass
 
 class Blocks {
-
-    // TODO: Complete the following function
     fun getData(blockA: Array<*>, blockB: KClass<*>): Any {
-        throw NotImplementedError("Not implemented")
+        var sumStr = ""
+        var sum = 0
+        var maxDate = LocalDate.MIN
+        blockA.forEach {
+            if (blockB.isInstance(it)) {
+                if (it is Int) {
+                    sum += it
+                } else if (it is String) {
+                    sumStr += it
+                } else if (it is LocalDate) {
+                    if (it.isAfter(maxDate)) {
+                        maxDate = it
+                    }
+                }
+            }
+        }
+        return when {
+            maxDate > LocalDate.MIN -> {
+                val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                maxDate.format(formatter)
+            }
+            sumStr.isEmpty() -> {
+                sum
+            }
+            else -> {
+                sumStr
+            }
+        }
     }
 }
