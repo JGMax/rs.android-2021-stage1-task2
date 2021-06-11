@@ -19,9 +19,9 @@ class Abbreviation {
             i++
         }
         return if (mutableA.length >= b.length) {
-            ""
+            "YES"
         } else {
-            ""
+            "NO"
         }
     }
 }
