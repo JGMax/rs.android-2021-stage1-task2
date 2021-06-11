@@ -6,29 +6,25 @@ import kotlin.reflect.KClass
 
 class Blocks {
     fun getData(blockA: Array<*>, blockB: KClass<*>): Any {
-        var sumStr = ""
-        var sum = 0
-        var maxDate = LocalDate.MIN
-        blockA.forEach {
-            if (blockB.isInstance(it)) {
-                if (it is Int) {
-                    sum += it
-                } else if (it is String) {
-                    sumStr += it
-                } else if (it is LocalDate) {
-                    if (it.isAfter(maxDate)) {
-                        maxDate = it
-                    }
+        return when(blockB) {
+            Int::class -> {
+                var sum = 0
+                blockA.filterIsInstance<Int>().forEach { sum += it }
+                sum
+            }
+            String::class -> {
+                var sum = ""
+                blockA.filterIsInstance<String>().forEach { sum += it }
+                sum
+            }
+            LocalDate::class -> {
+                val maxDate = blockA.filterIsInstance<LocalDate>().max()
+                if (maxDate != null) {
+                    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                    maxDate.format(formatter)
                 }
+                ""
             }
-        }
-        return when {
-            blockB.isInstance(maxDate) -> {
-                val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                maxDate.format(formatter)
-            }
-            blockB.isInstance(sum) -> sum
-            blockB.isInstance(sumStr) -> sumStr
             else -> ""
         }
     }
